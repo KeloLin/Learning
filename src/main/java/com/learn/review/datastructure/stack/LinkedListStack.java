@@ -1,13 +1,13 @@
 package com.learn.review.datastructure.stack;
 
-import com.learn.review.datastructure.array.Array;
+import com.learn.review.datastructure.linkedlist.LinkedList;
 
-public class ArrayStack<E> {
+public class LinkedListStack<E> {
 
-    private Array<E> stack;
+    private LinkedList<E> stack;
 
-    public ArrayStack(int maxSize) {
-        stack = new Array<>(maxSize);
+    public LinkedListStack() {
+        this.stack = new LinkedList<>();
     }
 
     public void push(E e) {
@@ -21,6 +21,4 @@ public class ArrayStack<E> {
     public void print() {
         stack.print();
     }
-
-
 }

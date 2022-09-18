@@ -5,7 +5,7 @@ public class LinkedList<E> {
     private Node<E> head;
 
     public LinkedList() {
-        Node head = new Node(null, null);
+        Node<E> head = new Node<>(null, null);
         this.head = head;
     }
 
@@ -13,9 +13,13 @@ public class LinkedList<E> {
         add(e);
     }
 
+    public void addFirst(E e) {
+        add(0, e);
+    }
+
     public void add(E e) {
-        Node node = new Node(e, null);
-        Node next = head.next;
+        Node<E> node = new Node(e, null);
+        Node<E> next = head.next;
         if (next == null) {
             head.next = node;
         } else {
@@ -27,14 +31,14 @@ public class LinkedList<E> {
     }
 
     public void add(int index, E e) {
-        Node node = new Node(e, null);
-        Node next = head.next;
+        Node<E> node = new Node(e, null);
+        Node<E> next = head.next;
         if (next == null) {
             head.next = node;
             return;
         }
         int i = 0;
-        while (i < index) {
+        while (i <= index) {
             if (next.next != null) {
                 next = next.next;
             } else {
@@ -45,15 +49,31 @@ public class LinkedList<E> {
         next.next = node;
     }
 
-    public void remove(int index) {
+    public E removeFirst() {
+        return remove(0);
+    }
+
+    public E removeLast() {
+        Node<E> prev = this.head;
+        Node<E> current = this.head.next;
+        while (current.next != null) {
+            prev = current;
+            current = current.next;
+        }
+        Node<E> next = prev.next;
+        prev.next = null;
+        return next.data;
+    }
+
+    public E remove(int index) {
         int i = 0;
-        Node prev = head;
-        Node current = head.next;
+        Node<E> prev = head;
+        Node<E> current = head.next;
         while (current != null) {
             if (i == index) {
-                Node tmp = current.next;
+                Node<E> tmp = current.next;
                 prev.next = tmp;
-                break;
+                return tmp.data;
             }
             // 把当前节点当成上个节点
             prev = current;
@@ -61,6 +81,7 @@ public class LinkedList<E> {
             current = current.next;
             i++;
         }
+        return null;
     }
 
     public void print() {

@@ -30,7 +30,7 @@ public class Array<E> {
         // 位置是否有元素
         if (this.data[index] != null) {
             // 有的话后面的元素全部后移一位
-            for (int i = this.data.length - 1; i >= index; i--) {
+            for (int i = this.size; i > index; i--) {
                 this.data[i] = this.data[i - 1];
             }
         }
@@ -58,10 +58,22 @@ public class Array<E> {
         E e = null;
         if (index >= 0 && index < this.data.length) {
             e = this.data[index];
-            this.data[index] = null;
-            size--;
+            if (e != null) {
+                for (int i = index; i < size; i++) {
+                    this.data[i] = this.data[i + 1];
+                }
+                size--;
+            }
         }
         return e;
+    }
+
+    public E removeFirst() {
+        return remove(0);
+    }
+
+    public E removeLast() {
+        return remove(size - 1);
     }
 
     private void resize() {

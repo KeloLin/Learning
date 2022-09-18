@@ -12,7 +12,9 @@ public class ArrayDemo {
         list.add(1, 30);
         list.print();
 
-        list.remove(2);
+        list.remove(0);
+        list.remove(0);
+        list.remove(0);
         list.print();
     }
 }
