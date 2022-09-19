@@ -236,9 +236,9 @@ public class BinarySortTree {
 
 
     class Node {
-        private Integer data;
-        private Node left;
-        private Node right;
+        protected Integer data;
+        protected Node left;
+        protected Node right;
 
         public Node(Integer data, Node left, Node right) {
             this.data = data;
