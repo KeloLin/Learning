@@ -4,7 +4,7 @@ package com.learn.review.datastructure.tree;
  * 平衡二叉树
  * 不平衡的判断标准为，左右
  */
-public class AvlTree extends BstTree {
+public class AvlTree extends BinarySortTree {
 
     @Override
     public void add(Integer e) {
