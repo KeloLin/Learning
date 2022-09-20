@@ -9,20 +9,23 @@ public class AvlTree extends BinarySortTree {
     @Override
     public void add(Integer e) {
         super.add(e);
+        rotate();
+    }
+
+    private void rotate() {
         // 判断左子树和右子树的高度差
-        Integer leftHeight = root.leftHeight();
-        Integer rightHeight = root.rightHeight();
+        Integer leftHeight = this.root.leftHeight();
+        Integer rightHeight = this.root.rightHeight();
         if (Math.abs(leftHeight - rightHeight) > 1) {
             // 判断左旋右旋
             if (leftHeight > rightHeight) {
                 // 左子树比右子树深，左旋
-                leftRotate();
+                this.root = leftRotate(this.root);
             } else {
                 // 右子树比左子树深，右旋
-                rightRotate();
+                this.root = rightRotate(this.root);
             }
         }
-
     }
 
     /**
@@ -34,12 +37,11 @@ public class AvlTree extends BinarySortTree {
      * 2. 原根节点的右子树的右子树不变，原根节点的右子树的左子树作为原根节点的右子树。
      * 3. 将原根节点作为调整后的根节点的左子树，原根节点的左子树不变。
      */
-    private void leftRotate() {
-        Node root = this.root;
+    private Node leftRotate(Node root) {
         Node rebaseLeft = new Node(root.data, root.left, root.right.left);
         Node rebaseRoot = root.right;
         rebaseRoot.left = rebaseLeft;
-        this.root = rebaseRoot;
+        return rebaseRoot;
     }
 
     /**
@@ -51,12 +53,11 @@ public class AvlTree extends BinarySortTree {
      * 2. 原根节点的左子树的左子树不变，原根节点的左子树的右子树作为原根节点的左子树。
      * 3. 将原根节点作为调整后的根节点的右子树，原根节点的右子树不变。
      */
-    private void rightRotate() {
-        Node root = this.root;
+    private Node rightRotate(Node root) {
         Node rebaseRight = new Node(root.data, root.left.right, root.right);
         Node rebaseRoot = root.left;
         rebaseRoot.right = rebaseRight;
-        this.root = rebaseRoot;
+        return rebaseRoot;
     }
 
 }
