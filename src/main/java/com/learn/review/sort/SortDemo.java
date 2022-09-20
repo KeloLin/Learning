@@ -7,11 +7,13 @@ package com.learn.review.sort;
 public class SortDemo {
 
     public static void main(String[] args) {
-        int[] arr = new int[]{6, 1, 10, 5, 9, 18, 9};
+        int[] arr = new int[]{6, 1, 10, 5, 9, 18, 90, 28, 67, 12, 7};
 
-        Sort.bubbleSort(arr);
+//        Sort.bubbleSort(arr);
+//        print(arr);
+
+        arr = Sort.mergeSort(arr);
         print(arr);
-
 
     }
 
