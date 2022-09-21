@@ -15,6 +15,7 @@ public class SortDemo {
         arr = Sort.mergeSort(arr);
         print(arr);
 
+
     }
 
     private static void print(int[] arr) {
@@ -27,4 +28,5 @@ public class SortDemo {
         }
         System.out.println("]");
     }
+
 }
