@@ -26,9 +26,6 @@ public class TreeDemo {
         tree.postOrder(tree.root);
         System.out.println();
 
-        BinarySortTree.Node node = tree.root.searchParent(20);
-        System.out.println(node);
-
     }
 
     public static void bstRemove() {
