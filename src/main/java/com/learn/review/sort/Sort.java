@@ -73,4 +73,23 @@ public class Sort {
         return result;
     }
 
+    public static void quickSort(int[] arr, int leftIndex, int rightIndex) {
+        int i = leftIndex + 1;
+        int j = rightIndex;
+
+        int index = i;
+        // 基准值以第一位为准
+        int pivot = arr[leftIndex];
+        while (i != j) {
+
+            if (arr[i] > arr[j]) {
+                // 左边大于右边，要把右边的值换到左边来
+                arr[leftIndex] = arr[j];
+
+            }
+
+        }
+
+
+    }
 }
