@@ -27,7 +27,8 @@ public class NioServer {
         selector = Selector.open();
         // 将服务端的channel注册到selector中
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-
+        System.out.println("服务端启动了。");
+        listen();
     }
 
     private void listen() {
@@ -43,20 +44,14 @@ public class NioServer {
                 while (iterator.hasNext()) {
                     SelectionKey key = iterator.next();
                     if (key.isAcceptable()) {
-                        // 建立连接
-                        SocketChannel socketChannel = serverSocketChannel.accept();
-                        // 将socket channel注册到selector中，并设置为可读
-                        socketChannel.register(selector, SelectionKey.OP_READ);
+                        System.out.println("有请求连接了。");
+                        handleAccept();
                     }
                     if (key.isReadable()) {
-                        SocketChannel channel = (SocketChannel) key.channel();
-                        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                        int read = channel.read(byteBuffer);
-                        if (read > 0) {
-                            String msg = new String(byteBuffer.array());
-                            System.out.println(msg);
-                        }
-
+                        handleRead(key);
+                    }
+                    if (key.isWritable()) {
+                        handleWrite(key);
                     }
                 }
                 iterator.remove();
@@ -66,4 +61,31 @@ public class NioServer {
         }
     }
 
+    private void handleWrite(SelectionKey key) throws IOException {
+
+    }
+
+    private void handleRead(SelectionKey key) throws IOException {
+        SocketChannel channel = (SocketChannel) key.channel();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+        int read = channel.read(byteBuffer);
+        if (read > 0) {
+            String msg = new String(byteBuffer.array());
+            System.out.println(msg);
+        }
+    }
+
+    private void handleAccept() throws IOException {
+        // 建立连接
+        SocketChannel socketChannel = serverSocketChannel.accept();
+        // 设置为非阻塞
+        socketChannel.configureBlocking(false);
+        // 将socket channel注册到selector中，并设置为可读
+        socketChannel.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(1024));
+    }
+
+    public static void main(String[] args) throws IOException {
+        NioServer server = new NioServer();
+
+    }
 }
