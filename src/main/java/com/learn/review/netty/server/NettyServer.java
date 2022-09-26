@@ -1,12 +1,11 @@
-package com.learn.review.netty;
+package com.learn.review.netty.server;
 
+import com.learn.review.netty.server.initializer.ServerChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
@@ -28,13 +27,8 @@ public class NettyServer {
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 128)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
-                .childHandler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel channel) throws Exception {
-                        channel.pipeline().addLast(null);
-                    }
-                });
-
+                .childHandler(new ServerChannelInitializer());
+        System.out.println("服务器准备好了。");
         // 绑定端口
         ChannelFuture channelFuture = bootstrap.bind(6677).sync();
         // 对通道的关闭事件进行监听
