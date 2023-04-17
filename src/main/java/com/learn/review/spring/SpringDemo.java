@@ -1,11 +1,11 @@
 package com.learn.review.spring;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class SpringDemo {
     public static void main(String[] args) {
-        SpringApplication.run(SpringDemo.class, args);
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/application.xml");
+        applicationContext.refresh();
     }
 }
